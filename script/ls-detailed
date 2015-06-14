@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+type=$1
+
+ls -$1

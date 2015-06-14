@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+filelist=$(/var/www/html/script/ls.pl)
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+folder=$1
+
+for f in $filelist; do
+	if [[ $f == $folder ]]; then
+		echo "Folder/File '$folder' already exists.."
+		exit 1
+	fi
+done
+
+sudo mkdir $folder
+echo "Success creating folder: '$folder'"

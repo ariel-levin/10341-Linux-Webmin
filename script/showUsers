@@ -1,0 +1,1 @@
+more /etc/passwd | grep /bin/bash | cut -d":" -f1

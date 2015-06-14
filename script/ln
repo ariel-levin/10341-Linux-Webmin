@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+	echo "Incorrect input.."
+	exit 1
+fi
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+src=$1
+dest=$2
+
+if [[ $src == */* ]]; then
+  	echo "Error: you can create links only from the current folder,"
+	echo "Please enter only the file/folder name without '/'"
+	exit 1
+fi
+
+if [[ ! -e $src ]]; then
+	echo "The source entered is not available"
+	exit 1
+fi
+
+# if dest == -1 we unlink
+if [ $dest == -1 ]; then
+
+	if [[ -L $src ]]; then
+		if sudo unlink $path/$src ; then
+			echo "Success unlinking the link: '$src'"
+			exit 0
+		else
+			echo "Failed to unlink the link: '$src'"
+			exit 1
+		fi
+	else
+		echo "The file '$src' is not a link.."
+		exit 1
+	fi
+	
+fi
+
+if [ ! -d $dest ]; then
+	echo "Error: destination is not an available folder.."
+	exit 1
+fi
+
+if sudo ln -s $path/$src $dest ; then
+	echo "Success creating link to file/folder: '$src'"
+	exit 0
+else
+	echo "Failed to create link to the file/folder: '$src'"
+	exit 1
+fi

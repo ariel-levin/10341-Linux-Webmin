@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# no arguments --> displaying the date
+if [ $# -eq 0 ]; then
+	date +%A,' '%B' '%d,' '%Y
+	exit 0
+fi
+
+if [ $# -ne 4 ] ; then
+	echo "Incorrect arguments input.."
+	exit 1
+fi
+
+type=$4
+
+if [[ $type != d ]] && [[ $type != t ]] ; then
+	echo "Incorrect arguments input.."
+	exit 1
+fi
+
+re='^[0-9]+$'	# regular expression
+
+# type == d --> changing the date
+if [[ $type == d ]] ; then
+
+	day=$1
+	month=$2
+	year=$3
+	
+	if ! [[ $day =~ $re ]] || ! [[ $month =~ $re ]] || ! [[ $year =~ $re ]] ; then
+		echo "Error: Please enter only numbers.."
+		exit 1
+	fi
+	
+	if [ $day -gt 31 ] || [ $day -lt 1 ] || [ $month -lt 1 ] || 
+		[ $month -gt 12 ] || [ $year -lt 1970 ]; then
+		
+		echo "Incorrect input for date.."
+		exit 1
+	fi
+
+	if [[ $day < 10 ]]; then
+		day=0$day;
+	fi
+	
+	if [[ $month < 10 ]]; then
+		month=0$month;
+	fi
+	
+	if sudo date +%Y%m%d -s "$year$month$day" 1> /dev/null ; then
+		echo "Success changing the date to: '$day/$month/$year'"
+		exit 0
+	else
+		echo "Failed to change the date.."
+		exit 1
+	fi
+	
+fi
+
+# type == t --> changing the time
+if [[ $type == t ]] ; then
+
+	hour=$1
+	min=$2
+	sec=$3
+	
+	if ! [[ $hour =~ $re ]] || ! [[ $min =~ $re ]] || ! [[ $sec =~ $re ]] ; then
+		echo "Error: Please enter only numbers.."
+		exit 1
+	fi
+	
+	if 	[ $hour -gt 23 ] || [ $hour -lt 0 ] || 
+		[ $min -gt 59 ] || [ $min -lt 0 ] || 
+		[ $sec -gt 59 ] || [ $sec -lt 0 ]; then
+		
+		echo "Incorrect input for time.."
+		exit 1
+	fi
+	
+	if [[ $hour < 10 ]]; then
+		hour=0$hour;
+	fi
+	
+	if [[ $min < 10 ]]; then
+		min=0$min;
+	fi
+	
+	if [[ $sec < 10 ]]; then
+		sec=0$sec;
+	fi
+	
+	if sudo date +%T -s "$hour:$min:$sec" 1> /dev/null ; then
+		echo "Success changing the time to: '$hour:$min:$sec'"
+		exit 0
+	else
+		echo "Failed to change the time.."
+		exit 1
+	fi
+	
+fi

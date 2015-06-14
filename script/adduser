@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+user=$1
+
+if [[ $user == ariel ]] || [[ $user == root ]]; then
+	echo "Cannot create the user: $user"
+	echo "User already exists"
+	exit 1;
+fi
+
+sudo adduser --disabled-password --gecos "" $user
+
+echo -e "\nSucceeded adding user: $user"

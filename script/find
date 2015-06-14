@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1
+fi
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+file=$1
+
+if [[ $file == */* ]]; then
+	echo "Please enter only the file/folder name without '/'"
+	exit 1
+fi
+
+find . -maxdepth 1 -iname "*$file*"

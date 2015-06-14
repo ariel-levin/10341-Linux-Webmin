@@ -1,0 +1,1096 @@
+<!DOCCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Linux User Interface</title>
+    <meta charset="utf-8" />
+    <meta lang="he" />
+    <!--<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link type="text/css" rel="stylesheet" href="css/styles.css" media="all">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+   
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+
+<!-- ///////////////////////////////////////////////////////////////////////// -->
+
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <script>
+      $(function() {
+        $( "#dialog" ).dialog({
+            width: 929,
+            height: 524,           
+          autoOpen: false,
+          show: {
+            effect: "blind",
+            duration: 1000
+            // width: 1000,
+            // height: 300
+          },
+          hide: {
+            effect: "explode",
+            duration: 1000
+          }
+        });
+     
+        $( "#top" ).click(function() {
+          $( "#dialog" ).dialog( "open" );
+        });
+      });
+      </script>
+
+
+<!-- ///////////////////////////////////////////////////////////////////////// -->
+
+
+    <script>
+        run("", "run/run.php?name=reset-path");
+
+        $(function () {
+            $("#menu").menu();
+        });
+    </script>
+    <style>
+        .ui-menu {
+            width: 150px;
+        }
+    </style>
+   
+
+
+    <!--####EFFECTt####-->
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <style>
+        .toggler {
+            width: 102%;
+            height: 700px;
+        }
+
+        #button {
+            padding: .5em 1em;
+            text-decoration: none;
+        }
+
+        #effect {
+            width: 78%;
+            height: 1000px;
+            border-color: white;
+            /*position: relative;*/
+            margin-left: 10%;
+        }
+
+            #effect h3 {
+                margin: 0;
+                padding: 0.4em;
+                text-align: center;
+            }
+    </style>
+   
+
+
+
+    <script>
+    
+        var currentFile = null;
+
+        //##############jQueryUiStart##########
+        $(function () {
+            $("#effect").hide();
+        });
+        $(function () {
+            // run the currently selected effect
+            function runEffect() {
+                // get effect type from
+                var selectedEffect = "drop";
+
+                // most effect types need no options passed by default
+                var options = {};
+                // some effects have required parameters
+                if (selectedEffect === "scale") {
+                    options = { percent: 100 };
+                } else if (selectedEffect === "size") {
+                    options = { to: { width: 280, height: 185 } };
+                }
+
+                // run the effect
+                $("#effect").show(selectedEffect, options, 500, callback);
+            };
+
+            //    callback function to bring a hidden box back
+            function callback() {
+                setTimeout(function () {
+                    $("#effect:visible").removeAttr("style").fadeIn();
+                }, 1000);
+            };
+
+            //################JqueryUiEnd###################
+
+
+            // $(document).ready(function () {
+            //     $( "#textareaButton" ).click(function() { 
+
+            //         var xmlhttp = new XMLHttpRequest();
+            //         xmlhttp.onreadystatechange = function () {
+            //             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            //                 document.getElementById("code").innerHTML = xmlhttp.responseText;
+
+            //             }
+            //         }
+            //        //alert(document.getElementById("myTextarea").value);
+            //         xmlhttp.open("GET", "run/runEdit.php?file="+ currentFile +"&str=" + document.getElementById("myTextarea").value, true);
+            //         xmlhttp.send();
+            // })
+            // )};
+
+
+            $(document).ready(function () {
+
+                $( "#textareaButton" ).click(function() {
+
+                    $('#textedit').hide();
+                    $('#code').show();
+
+                    var xmlhttp = new XMLHttpRequest();
+                            xmlhttp.onreadystatechange = function () {
+                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                    document.getElementById("code").innerHTML = xmlhttp.responseText;
+                                }
+                            }
+                    
+                    var text = document.getElementById("myTextarea").value;
+                    text = text.replace(/\r?\n/g, '<br />');
+
+                    // xmlhttp.open("GET", "run/runEdit.php?file="+ currentFile +"&str=" + document.getElementById("myTextarea").value, true);
+                    xmlhttp.open("GET", "run/runEdit.php?file="+ currentFile +"&str=" + text, true);
+                    xmlhttp.send();
+                });
+
+
+
+                $('label').click(function (event) {
+                    var id = event.target.id;
+                    //$("#effect").hide();
+                    //runEffect();
+
+                    if (id == "ls") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=ls.pl");
+                        output("run/run.php?name=ls.pl");
+                    }
+                    if (id == "ls-l") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=ls-detailed");
+                        output("run/runLS.php?type=l");
+                    }
+                    if (id == "ls-la") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=ls-detailed");
+                        output("run/runLS.php?type=la");
+                    }
+                    if (id == "ls-lt") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=ls-detailed");
+                        output("run/runLS.php?type=lt");
+                    }
+                    if (id == "copy") {
+                        var src = prompt("Please enter source file (in the current folder)");
+                        var dest = prompt("Please enter destination's folder");
+                        if (src != null && src != "" && dest != null && dest != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=copy.pl");
+                            output("run/runCopy.php?src=" + src + "&dest=" + dest);
+                        }
+                    }
+                    if (id == "move") {
+                        var src = prompt("Please enter source file (in the current folder)");
+                        var dest = prompt("Please enter destination's folder");
+                        if (src != null && src != "" && dest != null && dest != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=move.pl");
+                            output("run/runMove.php?src=" + src + "&dest=" + dest);
+                        }
+                    }
+                    if (id == "rename") {
+                        var src = prompt("Please enter the file name (in the current folder)");
+                        var dest = prompt("Please enter the new name");
+                        if (src != null && src != "" && dest != null && dest != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=rename");
+                            output("run/runRename.php?src=" + src + "&dest=" + dest);
+                        }
+                    }
+
+                    if (id == "cd-up") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=cd");
+                        output("run/run.php?name=cd");
+                        for (i = 0; i < 10; i++) {
+                            run("pwd", "run/run.php?name=pwd.pl");
+                            output("run/run.php?name=ls.pl");
+                        }
+                    }
+
+                    if (id == "cd-path") {
+                        var path = prompt("Please enter the path");
+                        if (path != null && path != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=cd");
+                            output("run/runCD.php?path=" + path);
+                            for (i = 0; i < 10; i++) {
+                                run("pwd", "run/run.php?name=pwd.pl");
+                                output("run/run.php?name=ls.pl");
+                            }
+                        }
+                    }
+                    if (id == "show-file-normal") {
+                        var file = prompt("Please enter the file name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=showFile.pl");
+                            output("run/runShowFile.php?file=" + file);
+                        }
+                    }
+                    if (id == "show-file-first") {
+                        var file = prompt("Please enter the file name");
+                        var num = prompt("Please enter the number of first lines to view in the file");
+                        if (file != null && file != "" && num != null && num != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=head.pl");
+                            output("run/runHead.php?num=" + num + "&file=" + file);
+                        }
+                    }
+                    if (id == "show-file-last") {
+                        var file = prompt("Please enter the file name");
+                        var num = prompt("Please enter the number of last lines to view in the file");
+                        if (file != null && file != "" && num != null && num != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=tail.pl");
+                            output("run/runTail.php?num=" + num + "&file=" + file);
+                        }
+                    }
+                    if (id == "edit-file") {
+                        var file = prompt("Please enter the file name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=edit.pl");
+                            edit("run/runShowFile.php?file=" + file);
+                            currentFile = file;
+                        }
+                    }
+                    if (id == "create-file") {
+                        var file = prompt("Please enter the file name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=touch");
+                            output("run/runTouch.php?file=" + file);
+                        }
+                    }
+                    if (id == "rem-file") {
+                        var file = prompt("Please enter the file name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=rm");
+                            output("run/runRm.php?file=" + file);
+                        }
+                    }
+                    if (id == "create-folder") {
+                        var folder = prompt("Please enter the folder's name");
+                        if (folder != null && folder != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=mkdir");
+                            output("run/runMkdir.php?folder=" + folder);
+                        }
+                    }
+                    if (id == "rem-folder") {
+                        var folder = prompt("Please enter the folder's name");
+                        if (folder != null && folder != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=rmdir");
+                            output("run/runRmdir.php?folder=" + folder);
+                        }
+                    }
+
+                    if (id == "create-link") {
+                        var src = prompt("Please enter source file (in the current folder)");
+                        var dest = prompt("Please enter destination's folder");
+                        if (src != null && src != "" && dest != null && dest != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=ln");
+                            output("run/runLN.php?src=" + src + "&dest=" + dest);
+                        }
+                    }
+                    if (id == "rem-link") {
+                        var src = prompt("Please enter the link's name (in the current folder)");
+                        if (src != null && src != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=ln");
+                            output("run/runLN.php?src=" + src + "&dest=-1");
+                        }
+                    }
+
+
+                    if (id == "wc-l") {
+                        var file = prompt("Please enter the file name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=wc-l.pl");
+                            output("run/runWC.php?type=l&file=" + file);
+                        }
+                    }
+                    if (id == "wc-w") {
+                        var file = prompt("Please enter the file name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=wc-w.pl");
+                            output("run/runWC.php?type=w&file=" + file);
+                        }
+                    }
+                    if (id == "wc-c") {
+                        var file = prompt("Please enter the file name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=wc-c.pl");
+                            output("run/runWC.php?type=c&file=" + file);
+                        }
+                    }
+
+                    if (id == "grep-normal") {
+                        var file = prompt("Please enter the file name");
+                        var word = prompt("Please enter the word to find");
+                        if (file != null && file != "" && word != null && word != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=grep-normal.pl");
+                            output("run/runGrep.php?type=normal&word=" + word + "&file=" + file);
+                        }
+                    }
+                    if (id == "grep-count") {
+                        var file = prompt("Please enter the file name");
+                        var word = prompt("Please enter the word to find");
+                        if (file != null && file != "" && word != null && word != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=grep-count.pl");
+                            output("run/runGrep.php?type=count&word=" + word + "&file=" + file);
+                        }
+                    }
+                    if (id == "grep-folder") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=grep-folder.pl");
+                        output("run/runGrep.php?type=folder");
+                    }
+
+                    if (id == "find") {
+                        var file = prompt("Please enter a file/folder name");
+                        if (file != null && file != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=find");
+                            output("run/runFind.php?file=" + file);
+                        }
+                    }
+
+
+                    if (id == "top") {
+                        $("#effect").hide(); //runEffect();
+                        //$("#impl").hide();
+                        //code("print.php?name=top");
+                        //output("run/run.php?name=top");
+
+                        $('#code').hide();
+                        $('#textedit').hide();
+
+                        for(i=0 ; i < 20 ; i++) {
+
+                            setTimeout(function() {
+
+                                var xmlhttp = new XMLHttpRequest();
+                                xmlhttp.onreadystatechange = function () {
+                                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                        document.getElementById("dialog").innerHTML = xmlhttp.responseText;
+                                    }
+                                }
+                        
+                                xmlhttp.open("GET", "run/run.php?name=top", true);
+                                xmlhttp.send();
+
+                            }, 2000);
+                        }
+                        // xmlhttp.open("GET", "run/run.php?name=top", true);
+                        
+                    }
+
+                    if (id == "change-date") {
+                        var day = prompt("Please enter the day (number between 1 and 31)");
+                        var month = prompt("Please enter the month (number between 1 and 12)");
+                        var year = prompt("Please enter the year (number bigger than 1970)");
+
+                        if (day != null && day != "" && month != null && month != "" && year != null && year != "") {
+
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=date");
+                            output("run/runDate.php?first=" + day + "&second=" + month + "&third=" + year + "&type=d");
+
+                        }
+                    }
+
+                    if (id == "change-time") {
+                        var hour = prompt("Please enter the hours (number between 0 and 23)");
+                        var min = prompt("Please enter the minutes (number between 0 and 59)");
+                        var sec = prompt("Please enter the seconds (number between 0 and 59)");
+
+                        if (hour != null && hour != "" && min != null && min != "" && sec != null && sec != "") {
+
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=date");
+                            output("run/runDate.php?first=" + hour + "&second=" + min + "&third=" + sec + "&type=t");
+
+                        }
+                    }
+
+                    if (id == "info-cpu") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=sysinfo");
+                        output("run/runSysinfo.php?type=cpu");
+                    }
+                    if (id == "info-hw") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=sysinfo");
+                        document.getElementById("code").innerHTML = "Calculating...";
+                        output("run/runSysinfo.php?type=hw");
+                    }
+                    if (id == "info-pci") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=sysinfo");
+                        output("run/runSysinfo.php?type=pci");
+                    }
+
+
+                    if (id == "create-backup") {
+                        var src = prompt("Please enter source file to backup (in the current folder)");
+                        var dest = prompt("Please enter the backup destination's folder");
+                        if (src != null && src != "" && dest != null && dest != "") {
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=backup");
+                            output("run/runBackup.php?src=" + src + "&dest=" + dest + "&type=b");
+                        }
+                    }
+                    if (id == "restore-backup") {
+                        var src = prompt("Please enter source backup file (in the current folder)");
+                        if (src != null && src != "") {
+                            alert("Note that the file/folder will be restored to it's original folder location (before the backup)");
+                            $("#effect").hide(); runEffect();
+                            code("print.php?name=backup");
+                            output("run/runBackup.php?src=" + src + "&dest=null&type=r");
+                        }
+                    }
+
+
+                    if (id == "show-users") {
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=showUsers");
+                        output("run/run.php?name=showUsers");
+                    }
+                    if (id == "show-per") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=showPermissions");
+                        output("run/runShowPermissions.php?file=" + file);
+                    }
+
+
+                    if (id == "user-give-read") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=u&what=%2B&per=r&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "user-rem-read") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=u&what=-&per=r&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "user-give-write") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=u&what=%2B&per=w&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "user-rem-write") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=u&what=-&per=w&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "user-give-exec") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=u&what=%2B&per=x&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "user-rem-exec") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=u&what=-&per=x&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+
+
+                    if (id == "group-give-read") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=g&what=%2B&per=r&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "group-rem-read") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=g&what=-&per=r&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "group-give-write") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=g&what=%2B&per=w&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "group-rem-write") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=g&what=-&per=w&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "group-give-exec") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=g&what=%2B&per=x&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "group-rem-exec") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=g&what=-&per=x&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+
+
+                    if (id == "other-give-read") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=o&what=%2B&per=r&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "other-rem-read") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=o&what=-&per=r&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "other-give-write") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=o&what=%2B&per=w&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "other-rem-write") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=o&what=-&per=w&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "other-give-exec") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=o&what=%2B&per=x&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+                    if (id == "other-rem-exec") {
+                        var file = prompt("Please enter the file name");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=chmod");
+                        output("run/runChmod.php?who=o&what=-&per=x&file=" + file);
+                        for (i = 0; i < 10; i++) {
+                            output("run/runLS.php?type=l");
+                        }
+                    }
+
+
+                    if (id == "add-user") {
+                        var user = prompt("Please enter the username");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=adduser");
+                        output("run/runAddUser.php?user=" + user);
+                    }
+                    if (id == "rem-user") {
+                        var user = prompt("Please enter the username");
+                        $("#effect").hide(); runEffect();
+                        code("print.php?name=remuser");
+                        output("run/runRemUser.php?user=" + user);
+                    }
+
+                });
+            });
+
+            //  set effect from select menu value
+            //$("#ls").click(function () {
+            //    $("#effect").hide();
+            //    runEffect();
+            //    output("sample1.php");
+            //    code("sample.php");
+
+
+            // });
+
+
+            // $("#lss").click(function () {
+            //    $("#effect").hide();
+            //    runEffect();
+            //    code("echo.php");
+            //    output("sample.php");
+
+            //});
+
+            //$("#effect").hide();
+        });
+    </script>
+
+    
+
+
+ <script>
+    ( function( $ ) {
+    $( document ).ready(function() {
+    $('#tabs-1').prepend('<div id="menu-button">Menu</div>');
+        $('#tabs-1 #menu-button').on('click', function(){
+            var menu = $(this).next('ul');
+            if (menu.hasClass('open')) {
+                menu.removeClass('open');
+            }
+            else {
+                menu.addClass('open');
+            }
+        });
+    });
+    } )( jQuery );
+</script>
+
+
+
+ 
+
+    <!--reboot-site-->
+    <script>
+        $(function () {
+            
+            run("", "run/run.php?name=reset-path");
+
+            $("#menu").menu().hide();
+            $('#table-1').hide();
+            $('#table-2').hide();
+            $('.tag1').hide();
+            $('.tag2').hide();
+
+        });
+
+        $(function () {
+            $('#shell-tab').click(function () {
+                $('.tag2').hide();
+                $('.tag1').fadeIn(1000);
+                $('#table-1').fadeIn(1000);
+                $('#table-2').fadeOut(1000);
+            });
+        });
+
+        $(function () {
+            $('#ls-tab').click(function () {
+                $('.tag2').fadeIn(1000);
+                $('.tag1').hide();
+                $('#table-1').hide();
+                $('#table-2').fadeIn(1000);
+            });
+        });
+
+        $(function () {
+            $('#ls-tab').click(function () {
+                $('#tabs-2').hide();
+                userInput = prompt("Please enter the Admin's Password");
+                if (userInput == "admin") {
+                    $('#tabs-2').show();
+                } else {
+                    alert("Incorrect password!");
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        $(function () {
+            // alert("help");
+            $("#tabs").tabs();
+
+            run("pwd", "run/run.php?name=pwd.pl");
+            runDate();
+        });
+    </script>
+
+
+</head>
+
+
+
+<!-- -----------------------------------------------------
+END OF HEAD
+START OF BODY 
+----------------------------------------------------- -->
+
+
+<body style="width:98%; height:1800px;">
+    <!--1882px-->
+
+
+    <header align=" center" style="width:80%; height:400px;  margin-right:auto; margin-left:auto;border-radius:25px;"><img src="css/pic.jpg" width="100%" height="100%">></header>
+
+  
+    <div style="margin-left: 10%; margin-top: 0%; margin-right: 10%;">
+        <div id="tabs">
+            <ul id="test">
+                <li id="shell-tab">   <a href="#tabs-1">User     </a>    </li>
+                <li id="ls-tab">      <a href="#tabs-2" >Admin   </a>    </li>
+                <li id="pwd-tab" >    <a href="#tabs-3" id="pwd">    </a>     </li>
+                <li id="date-tab" >    <a href="#tabs-4" id="date">    </a>     </li>
+            </ul>
+
+ 
+            <!-- USER -->
+            <div id='tabs-1'>
+            <ul>
+                <li class='has-sub'><a href='#'><span>Display Folder's Content</span></a>
+                  <ul>
+                     <li><a href='#'><label id="ls">Normal List</label></a></li>
+                     <li><a href='#'><label id="ls-l">List with Details</label></a></li>
+                     <li><a href='#'><label id="ls-la">List with Hidden</label></a></li>
+                     <li><a href='#'><label id="ls-lt">List by Modify Date</label></a></li>
+                  </ul>
+               </li>
+
+               <li class='has-sub'><a href='#'><span>Change Directory</span></a>
+                  <ul>
+                     <li><a href='#'><label id="cd-up">Go Up</label></a></li>
+                     <li><a href='#'><label id="cd-path">Give Path</label></a></li>
+                  </ul>
+               </li>
+
+                <li class='has-sub'><a href='#'><span>Files</span></a>
+                  <ul>
+                     <li><a href='#'><label id="show-file-normal">Show File</label></a></li>
+                     <li><a href='#'><label id="show-file-first">Show First Lines</label></a></li>
+                     <li><a href='#'><label id="show-file-last">Show Last Lines</label></a></li>
+                     <li><a href='#'><label id="edit-file">Edit File</label></a></li>
+                     <li><a href='#'><label id="create-file">Create File</label></a></li>
+                     <li><a href='#'><label id="rem-file">Remove File</label></a></li>
+                     <li><a href='#'><label id="copy">Copy File</label></a></li>
+                     <li><a href='#'><label id="move">Move File</label></a></li>
+                     <li><a href='#'><label id="rename">Rename File/Folder</label></a></li>
+                     <li><a href='#'><label id="create-folder">Create Folder</label></a></li>
+                     <li><a href='#'><label id="rem-folder">Remove Folder</label></a></li>
+                  </ul>
+               </li>
+
+               <li class='has-sub'><a href='#'><span>Links</span></a>
+                  <ul>
+                     <li><a href='#'><label id="create-link">Create Link</label></a></li>
+                     <li><a href='#'><label id="rem-link">Remove Link</label></a></li>
+                  </ul>
+               </li>
+
+                <li class='has-sub'><a href='#'><span>Find Files</span></a>
+                  <ul>
+                     <li><a href='#'><label id="find">Find File/Folder</label></a></li>
+                     <li><a href='#'><label id="grep-folder">Find folders in current folder</label></a></li>
+                  </ul>
+               </li>
+
+                <li class='has-sub'><a href='#'><span>Find Inside a File</span></a>
+                  <ul>
+                     <li><a href='#'><label id="grep-normal">Find lines with specific word</label></a></li>
+                     <li><a href='#'><label id="grep-count">Count lines with specific word</label></a></li>
+                  </ul>
+               </li>
+
+                <li class='last has-sub'><a href='#'><span>Count In File</span></a>
+                  <ul>
+                     <li><a href='#'><label id="wc-l">Count Lines</label></a></li>
+                     <li><a href='#'><label id="wc-w">Count Words</label></a></li>
+                     <li><a href='#'><label id="wc-c">Count Characters</label></a></li>
+                  </ul>
+               </li>
+
+            </ul>
+
+			</div> 
+
+
+
+            <!-- ADMIN -->
+            <div id="tabs-2">
+
+                <ul>
+
+                    <li class='has-sub'><a href='#'><span>Admin</span></a>
+                      <ul>
+                         <li><a href='#'><label id="top">Processes</label></a></li>
+                         <li><a href='#'><label id="change-date">Change Date</label></a></li>
+                         <li><a href='#'><label id="change-time">Change Time</label></a></li>
+                         <li><a href='#'><label id="create-backup">Create Backup</label></a></li>
+                         <li><a href='#'><label id="restore-backup">Restore Backup</label></a></li>
+                      </ul>
+                   </li>
+
+                    <li class='has-sub'><a href='#'><span>System Info</span></a>
+                      <ul>
+                         <li><a href='#'><label id="info-cpu">CPU Info</label></a></li>
+                         <li><a href='#'><label id="info-hw">Hardware Info</label></a></li>
+                         <li><a href='#'><label id="info-pci">List PCI</label></a></li>
+                      </ul>
+                   </li>
+
+                    <li class='has-sub'><a href='#'><span>User Management</span></a>
+                      <ul>
+                         <li><a href='#'><label id="add-user">Add User</label></a></li>
+                         <li><a href='#'><label id="rem-user">Remove Users</label></a></li>
+                         <li><a href='#'><label id="show-users">Show all Users</label></a></li>
+                         <li><a href='#'><label id="show-per">Show Permissions</label></a></li>
+                      </ul>
+                   </li>
+
+                    <li class='has-sub'><a href='#'><span>User Permissions</span></a>
+                      <ul>
+                         <li><a href='#'><label id="user-give-read">Give Read Permission</label></a></li>
+                         <li><a href='#'><label id="user-rem-read">Remove Read Permission</label></a></li>
+                         <li><a href='#'><label id="user-give-write">Give Write Permission</label></a></li>
+                         <li><a href='#'><label id="user-rem-write">Remove Write Permission</label></a></li>
+                         <li><a href='#'><label id="user-give-exec">Give Execute Permission</label></a></li>
+                         <li><a href='#'><label id="user-rem-exec">Remove Execute Permission</label></a></li>
+                      </ul>
+                   </li>
+
+                   <li class='has-sub'><a href='#'><span>Group Permissions</span></a>
+                      <ul>
+                         <li><a href='#'><label id="group-give-read">Give Read Permission</label></a></li>
+                         <li><a href='#'><label id="group-rem-read">Remove Read Permission</label></a></li>
+                         <li><a href='#'><label id="group-give-write">Give Write Permission</label></a></li>
+                         <li><a href='#'><label id="group-rem-write">Remove Write Permission</label></a></li>
+                         <li><a href='#'><label id="group-give-exec">Give Execute Permission</label></a></li>
+                         <li><a href='#'><label id="group-rem-exec">Remove Execute Permission</label></a></li>
+                      </ul>
+                   </li>
+
+                   <li class='last has-sub'><a href='#'><span>Others Permissions</span></a>
+                      <ul>
+                         <li><a href='#'><label id="other-give-read">Give Read Permission</label></a></li>
+                         <li><a href='#'><label id="other-rem-read">Remove Read Permission</label></a></li>
+                         <li><a href='#'><label id="other-give-write">Give Write Permission</label></a></li>
+                         <li><a href='#'><label id="other-rem-write">Remove Write Permission</label></a></li>
+                         <li><a href='#'><label id="other-give-exec">Give Execute Permission</label></a></li>
+                         <li><a href='#'><label id="other-rem-exec">Remove Execute Permission</label></a></li>
+                      </ul>
+                   </li>
+
+                </ul>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    
+
+    <br>
+
+
+        <!--###php###-->
+        <script>
+            function code(str) {
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        document.getElementById("output").innerHTML = xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET", str, true);
+                xmlhttp.send();
+            }
+        </script>
+        <script>           
+            function output(str) {
+
+                $('#code').show();
+                $('#textedit').hide();
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        document.getElementById("code").innerHTML = xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET", str, true);
+                xmlhttp.send();
+            }
+        </script>
+        <script>
+            function edit(str) {
+
+                $('#code').hide();
+                $('#textedit').show();
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+
+                    document.getElementById("myTextarea").innerHTML = "";
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                        // document.getElementById("myTextarea").innerHTML = xmlhttp.responseText.replace(/<br\s*[\/]?>/gi, "");
+                        document.getElementById("myTextarea").value = xmlhttp.responseText.replace(/<br\s*[\/]?>/gi, "");
+
+                    }
+                }
+                xmlhttp.open("GET", str, true);
+                xmlhttp.send();
+            }
+        </script>
+        <script>
+            function run(id, str) {
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        document.getElementById(id).innerHTML = "Current Directory: " + xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET", str, true);
+                xmlhttp.send();
+				
+				//document.getElementById(id).innerHTML = "Current Directory: " + "/test/that/works";
+            }
+
+            for(i = 0 ; i < 10 ; i++) {
+                run("pwd", "run/run.php?name=pwd.pl");
+            }
+        </script>
+        <script>
+            function runDate() {
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        document.getElementById("date").innerHTML = xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET", "run/run.php?name=date", true);
+                xmlhttp.send();
+                
+                //document.getElementById(id).innerHTML = "Current Directory: " + "/test/that/works";
+            }
+
+            for(i = 0 ; i < 10 ; i++) {
+                runDate();
+            }
+        </script>
+        <!--###php###-->
+
+
+        <div class="toggler">
+            <div id="effect" class="ui-widget-content ui-corner-all">
+                <h3 class="ui-widget-header ui-corner-all"> <label> outout  </label> <label style="margin-left: 48%;">Implementation</label></h3>
+                <table border="1" style="width:100%" id="table-3">
+                    <tr>
+                        <td style="width: 50%; vertical-align: top; ">
+                            <p id="code"> 
+
+                            </p>
+                            <p id="textedit"> 
+                                <textarea style="width:100%;height:100px;" id="myTextarea"></textarea><br/>
+                                <input id="textareaButton" type="button" value="Save"></input>
+                            </p>
+                        </td>
+                        <td style="vertical-align: top;" id="impl">                    <p id="output"></p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <div id="dialog" title="Basic dialog" style="width:20%;height:20px;"><p></p></div>
+
+
+</body>
+
+</html>

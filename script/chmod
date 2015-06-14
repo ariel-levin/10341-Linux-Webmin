@@ -1,0 +1,22 @@
+#!/bin/bash
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+who=$1
+what=$2
+per=$3
+file=$4
+
+if [ $# -ne 4 ] || [ ! -f $file ] || [ -z $file ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+if sudo chmod $who$what$per $file ; then
+	echo "Success changing permissions to the file: '$file'"
+	exit 0
+else
+	echo "Failed changing permissions to the file: '$file'"
+	exit 1
+fi

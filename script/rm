@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+filelist=$(/var/www/html/script/ls.pl)
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+file=$1
+
+for f in $filelist; do
+	if [[ $f == $file ]]; then
+		if sudo rm $file ; then
+			echo "Success deleting file: '$file'"
+		else
+			echo "Failed to delete the file '$file'"
+		fi
+		exit 0
+	fi
+done
+
+echo "Error deleting file '$file': file not found.."

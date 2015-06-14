@@ -1,0 +1,87 @@
+#!/bin/bash
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+file=$1
+
+if [ $# -ne 1 ] || [ -z $file ]; then
+	echo "File doesn't exist.."
+	exit 1;
+fi
+
+per=$(ls -l | grep $file | cut -d" " -f1)
+
+if [ -z $per ]; then
+	echo "File doesn't exist.."
+	exit 1;
+fi
+
+user=$(echo $per | cut -c2-4)
+group=$(echo $per | cut -c5-7)
+other=$(echo $per | cut -c8-10)
+
+echo -e "Permissions to '$file':\n"
+
+#########################################################
+
+echo -e "User's permissions:"
+if [[ $user == *r* ]]; then
+  	echo "Read - Yes"
+else
+	echo "Read - No"
+fi
+
+if [[ $user == *w* ]]; then
+  	echo "Write - Yes"
+else
+	echo "Write - No"
+fi
+
+if [[ $user == *x* ]]; then
+  	echo "Execute - Yes"
+else
+	echo "Execute - No"
+fi
+
+#########################################################
+
+echo -e "\nGroup's permissions:"
+if [[ $group == *r* ]]; then
+  	echo "Read - Yes"
+else
+	echo "Read - No"
+fi
+
+if [[ $group == *w* ]]; then
+  	echo "Write - Yes"
+else
+	echo "Write - No"
+fi
+
+if [[ $group == *x* ]]; then
+  	echo "Execute - Yes"
+else
+	echo "Execute - No"
+fi
+
+#########################################################
+
+echo -e "\nOther's permissions:"
+if [[ $other == *r* ]]; then
+  	echo "Read - Yes"
+else
+	echo "Read - No"
+fi
+
+if [[ $other == *w* ]]; then
+  	echo "Write - Yes"
+else
+	echo "Write - No"
+fi
+
+if [[ $other == *x* ]]; then
+  	echo "Execute - Yes"
+else
+	echo "Execute - No"
+fi

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+if [ $# -eq 1 ]; then
+	dirname=$1
+	cd $dirname
+else
+	cd ..
+fi
+
+pwd > "/var/www/html/script/current-path"

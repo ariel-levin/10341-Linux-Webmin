@@ -1,0 +1,25 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+user=$1
+
+if [[ $user == ariel ]] || [[ $user == root ]]; then
+	echo "Cannot delete the user: $user"
+	exit 1;
+fi
+
+allusers=$(/var/www/html/script/showUsers)
+
+for u in $allusers; do
+	if [[ $u == $user ]]; then
+		sudo userdel -f -r $user 2> /dev/null
+		echo "Success deleting user: $user"
+		exit 0
+	fi
+done
+
+echo "User $user doesn't exist.."

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+filelist=$(/var/www/html/script/ls.pl)
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+folder=$1
+
+for f in $filelist; do
+	if [[ $f == $folder ]]; then
+		if sudo rmdir $folder ; then
+			echo "Success deleting folder: '$folder'"
+		else
+			echo "Please empty the folder before deleting it.."
+		fi
+		exit 0
+	fi
+done
+
+echo "Error deleting folder '$folder': folder not found.."

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+	echo "Incorrect input.."
+	exit 1
+fi
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+src=$1
+dest=$2
+
+if [[ $src == */* ]] || [[ $dest == */* ]]; then
+  	echo "Error: you can rename only in the current folder,"
+	echo "Please enter only the file/folder name without '/'"
+	exit 1
+fi
+
+if [[ ! -e $src ]]; then
+	echo "Error: the source entered is not available"
+	exit 1
+fi
+
+if [[ -e $dest ]]; then
+	echo "Error: the name given already exists in this folder.."
+	exit 1
+fi
+
+if sudo mv $src $dest ; then
+	echo "Success renaming file/folder: '$src'"
+	exit 0
+else
+	echo "Failed to rename the file/folder: '$src'"
+	exit 1
+fi

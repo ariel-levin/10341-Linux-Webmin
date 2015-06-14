@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect input.."
+	exit 1;
+fi
+
+filelist=$(/var/www/html/script/ls.pl)
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+file=$1
+
+for f in $filelist; do
+	if [[ $f == $file ]]; then
+		echo "File '$file' already exists.."
+		exit 1
+	fi
+done
+
+sudo touch $file
+echo "Success creating file: '$file'"

@@ -1,0 +1,68 @@
+#!/bin/bash
+
+if [ $# -ne 3 ]; then
+	echo "Incorrect arguments input.."
+	exit 1
+fi
+
+type=$3
+
+if [[ $type != b ]] && [[ $type != r ]] ; then
+	echo "Incorrect arguments input.."
+	exit 1
+fi
+
+path=$(head -1 /var/www/html/script/current-path)
+cd $path
+
+src=$1
+dest=$2
+
+if [[ $src == */* ]]; then
+  	echo "Error: you can create or restore backup only from the current folder,"
+	echo "Please enter only the file/folder name without '/'"
+	exit 1
+fi
+
+if [[ ! -e $src ]]; then
+	echo "Error: The source entered is not available"
+	exit 1
+fi
+
+# type == b --> backup
+if [[ $type == b ]] ; then
+
+	if [ ! -d $dest ]; then
+		echo "Error: destination is not an available folder.."
+		exit 1
+	fi
+
+	if sudo tar -czf $dest/$src.tar.gz $path/$src ; then
+		echo "Success creating backup to file/folder: '$src'"
+		exit 0
+	else
+		echo "Failed to create backup to the file/folder: '$src'"
+		exit 1
+	fi
+
+fi
+
+# type == r --> restore
+if [[ $type == r ]] ; then
+
+	if [[ $src != *.tar.gz ]]; then
+		echo "Error: the source file entered is not a backup file (.tag.gz)"
+		echo "Please enter file with .tar.gz extension"
+		exit 1
+	fi
+
+	if sudo tar -xf $path/$src -C / ; then
+		echo "Success restoring backup from file: '$src'"
+		echo "The file/folder restored to it's original folder location (before the backup)"
+		exit 0
+	else
+		echo "Failed to restore backup from the file: '$src'"
+		exit 1
+	fi
+
+fi
